@@ -11,3 +11,16 @@ Package                         Version
 @schematics/update              0.1100.7
 rxjs                            6.6.3
 typescript                      4.0.5
+
+------------------------------
+
+This Web application is deploied on firebase. 
+Url: https://timhuangshoppingcart.web.app
+
+
+------------------------------
+1/26/2021
+
+.Saving user to firebase Database.
+.Hiring and showing  "Manage orders" and "Manage products" dropdown menu depends if user is admin or not.
+.
