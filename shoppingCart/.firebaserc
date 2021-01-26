@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "timhuangshoppingcart": {
+      "hosting": {
+        "shoppingCart": [
+          "timhuangshoppingcart"
+        ]
+      }
+    }
+  }
+}
