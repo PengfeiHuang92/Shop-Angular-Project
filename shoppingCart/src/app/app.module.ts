@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 //Firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 //Bootstrap
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -28,9 +29,10 @@ import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.componen
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 
 //service
-import { AuthenticationService } from './authentication.service';
-import { AuthGuardService } from './auth-guard.service';
-
+import { AuthenticationService } from './services/authentication.service';
+import { AuthGuardService } from './services/auth-guard.service';
+import { UserService } from './services/user.service';
+import { AdminAuthGuardService } from './services/admin-auth-guard.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +53,7 @@ import { AuthGuardService } from './auth-guard.service';
     //Firebase
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-
+    AngularFireDatabaseModule,
     //BootStrap
     NgbModule,
 
@@ -66,12 +68,16 @@ import { AuthGuardService } from './auth-guard.service';
       { path:'login', component: LoginComponent },
       { path:'my-order', component: MyOrdersComponent },
       //using canActivate to protect none sigin user access admin products pager
-      { path:'admin/admin-products', component: AdminProductsComponent, canActivate:[AuthGuardService]},
+      { path:'admin/admin-products', component: AdminProductsComponent, 
+      canActivate:[AuthGuardService,AdminAuthGuardService]
+      },
       //using canActivate to protect none sigin user access admin orders pager
-      { path:'admin/admin-orders', component: AdminOrdersComponent, canActivate:[AuthGuardService]},
+      { path:'admin/admin-orders', component: AdminOrdersComponent,
+       canActivate:[AuthGuardService,AdminAuthGuardService]
+      },
     ])
   ],
-  providers: [AuthenticationService,AuthGuardService],
+  providers: [AuthenticationService,AuthGuardService,UserService,AdminAuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

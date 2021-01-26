@@ -9,15 +9,17 @@
             <li class="nav-item">
                 <a class="nav-link" routerLink="/shopping-cart">Shopping Cart</a>
               </li>
-          <li *ngIf="!user"class="nav-item">
+          <li *ngIf="!appUser"class="nav-item">
             <a class="nav-link" routerLink="/login">Login</a>
           </li>
-          <li ngbDropdown *ngIf="user" class="nav-item dropdown">
-            <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">{{user.displayName}}</a>
+          <li ngbDropdown *ngIf="appUser" class="nav-item dropdown">
+            <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">{{appUser.name}}</a>
             <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
               <li><a class="dropdown-item" routerLink="/my-order">MY Orders</a></li>
-              <li><a class="dropdown-item" routerLink="/admin/admin-products">Manage Products</a></li>
-              <li><a class="dropdown-item" routerLink="/admin/admin-orders">Manage Orders</a></li>
+              <ng-container *ngIf="appUser.isAdmin">
+                <li><a class="dropdown-item" routerLink="/admin/admin-products">Manage Products</a></li>
+                <li><a class="dropdown-item" routerLink="/admin/admin-orders">Manage Orders</a></li>
+              </ng-container>  
               <li><a class="dropdown-item" (click)="logout()">Log out</a></li>
             </ul>
           </li>

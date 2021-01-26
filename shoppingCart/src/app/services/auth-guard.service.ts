@@ -13,16 +13,17 @@ export class AuthGuardService implements CanActivate{
  // reutrn true when user is logined, otherwise return false
  canActivate(route:ActivatedRouteSnapshot,state:RouterStateSnapshot){
   //this.afAuth.authState.subscribe();
-  return this.afAuth.authState.pipe(map(
-    user=>{ 
-      if(user) return true;
+  return this.afAuth.authState.pipe(
+    map(
+      user=>{ 
+        if(user) return true;
 
-      //if user is null, then redirected to login in page and show the state url
-      this.router.navigate(
-        ['/login'],
-        { queryParams : {returnUrl: state.url}}
-        );
-      return false;
+        //if user is null, then redirected to login in page and show the state url
+        this.router.navigate(
+          ['/login'],
+          { queryParams : {returnUrl: state.url}}
+          );
+        return false;
     }));
     
   }
