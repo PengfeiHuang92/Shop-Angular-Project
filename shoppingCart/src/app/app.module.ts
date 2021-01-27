@@ -1,20 +1,23 @@
+import { NgModule } from '@angular/core';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
+
+
+//Bootstrap
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 //Firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 
-//Bootstrap
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 //Routering
 import { RouterModule } from '@angular/router';
 
-//Bootstrap
-import { NgModule } from '@angular/core';
+
 
 //Component
 import { MyOrdersComponent } from './my-orders/my-orders.component';

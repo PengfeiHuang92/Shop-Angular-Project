@@ -14,6 +14,8 @@ export class BsNavbarComponent  {
 
   //user:any;
   appUser: any;
+  //Hamburger button 
+  isNavbarCollapsed =true;
   constructor(
     private afAuth: AngularFireAuth,
     private afSevice: AuthenticationService,
@@ -30,5 +32,8 @@ export class BsNavbarComponent  {
     this.afSevice.logout();
   }
 
+  toggleCollapse(){
+
+  }
 
 }
