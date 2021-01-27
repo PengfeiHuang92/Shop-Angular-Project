@@ -1,3 +1,4 @@
+import { AppUser } from './../models/app-user';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { UserService } from './user.service';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
@@ -22,7 +23,8 @@ export class AdminAuthGuardService implements CanActivate {
         switchMap(user => {
           if(user){
             //getting an Obervable<AppUser>
-            this.userService.get(user.uid).valueChanges()
+            
+            return this.userService.get(user.uid).valueChanges()
             .pipe(
               //getting an AppUser from Obervable<AppUser>
               map((appUser)=>
@@ -30,8 +32,10 @@ export class AdminAuthGuardService implements CanActivate {
                 //when appUser exist and appUser is admin, return true,
                 //otherwise redirected to home page and return false
                 if(appUser) { 
+                  
                   if(appUser.isAdmin) return true;
                  } 
+                 
                 this.router.navigate(['']);
                 return false;
               }))
@@ -41,6 +45,7 @@ export class AdminAuthGuardService implements CanActivate {
         }
         )
       );
+      
     }
 
     

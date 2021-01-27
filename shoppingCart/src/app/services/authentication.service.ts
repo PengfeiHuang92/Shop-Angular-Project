@@ -62,7 +62,8 @@ export class AuthenticationService {
     return this.afAuth.authState.pipe(
       switchMap(user => {
         if(user){
-          return this.userService.get(user.uid).valueChanges().pipe(
+          return this.userService.get(user.uid).valueChanges()
+          .pipe(
             map(user => {return user})
           );
         }
