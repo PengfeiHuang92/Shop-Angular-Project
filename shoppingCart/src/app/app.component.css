@@ -1,3 +1,7 @@
 .container{
+    position: relative;
     padding-top:70px;
+}
+.nav-relatived{
+    position: absolute;
 }

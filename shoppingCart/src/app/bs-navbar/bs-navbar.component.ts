@@ -1,4 +1,3 @@
-
 import { AppUser } from './../models/app-user';
 import { Component} from '@angular/core';
 
@@ -16,6 +15,7 @@ export class BsNavbarComponent  {
   appUser: any;
   //Hamburger button 
   isNavbarCollapsed =true;
+
   constructor(
     private afAuth: AngularFireAuth,
     private afSevice: AuthenticationService,
@@ -32,8 +32,9 @@ export class BsNavbarComponent  {
     this.afSevice.logout();
   }
 
-  toggleCollapse(){
-
+  hideNav(){
+    if(!this.isNavbarCollapsed)
+      return this.isNavbarCollapsed  = !this.isNavbarCollapsed;
   }
 
 }
