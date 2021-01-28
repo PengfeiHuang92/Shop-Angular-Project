@@ -21,6 +21,12 @@ Url: https://timhuangshoppingcart.web.app
 ------------------------------
 1/26/2021
 
-.Saving user to firebase Database.
-.Hiring and showing  "Manage orders" and "Manage products" dropdown menu depends if user is admin or not.
+.Stored User's name and Google email into firebase database.
+.hided and shoed  "Manage orders" and "Manage products" dropdown menu depends if user is admin or not.
 .
+
+..............................
+1/27/2021 ~ 1/28/2021
+
+.Fixed the navigation bar does not show on small screen. // added isNavbarCollapsed
+.Hided navigation link when user clicked on small screen. // hideNav()
