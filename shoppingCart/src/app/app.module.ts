@@ -1,8 +1,10 @@
+
+import { CategoryService } from './services/category.service';
 import { NgModule } from '@angular/core';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 //Bootstrap
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -13,10 +15,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 
-
 //Routering
 import { RouterModule } from '@angular/router';
-
 
 
 //Component
@@ -36,7 +36,8 @@ import { AuthenticationService } from './services/authentication.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { UserService } from './services/user.service';
 import { AdminAuthGuardService } from './services/admin-auth-guard.service';
-
+import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { ProductService } from './services/product.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +50,8 @@ import { AdminAuthGuardService } from './services/admin-auth-guard.service';
     ProductsComponent,
     ShoppingCartComponent,
     AdminOrdersComponent,
-    AdminProductsComponent
+    AdminProductsComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +63,10 @@ import { AdminAuthGuardService } from './services/admin-auth-guard.service';
     //BootStrap
     NgbModule,
 
+    //ngform 
+    FormsModule,
+    ReactiveFormsModule,
+
     //Router
     RouterModule.forRoot([
       { path:'', component: HomeComponent },
@@ -71,17 +77,30 @@ import { AdminAuthGuardService } from './services/admin-auth-guard.service';
       { path:'order-success', component: OrderSuccessComponent },
       { path:'login', component: LoginComponent },
       { path:'my-order', component: MyOrdersComponent },
-      //using canActivate to protect none sigin user access admin products pager
-      { path:'admin/admin-products', component: AdminProductsComponent, 
-      canActivate:[AuthGuardService,AdminAuthGuardService]
+      
+      { 
+        path:'admin/admin-products', component: AdminProductsComponent, 
+        canActivate:[AuthGuardService,AdminAuthGuardService]
       },
-      //using canActivate to protect none sigin user access admin orders pager
-      { path:'admin/admin-orders', component: AdminOrdersComponent,
-       canActivate:[AuthGuardService,AdminAuthGuardService]
+
+      { 
+        path:'admin/products/new', component: ProductFormComponent, 
+        canActivate:[AuthGuardService,AdminAuthGuardService]
+      },
+  
+      { 
+        path:'admin/admin-orders', component: AdminOrdersComponent,
+        canActivate:[AuthGuardService,AdminAuthGuardService]
       },
     ])
   ],
-  providers: [AuthenticationService,AuthGuardService,UserService,AdminAuthGuardService],
+  providers: [
+    AuthenticationService,
+    AuthGuardService,
+    AdminAuthGuardService,
+    UserService,
+    ProductService,
+    CategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

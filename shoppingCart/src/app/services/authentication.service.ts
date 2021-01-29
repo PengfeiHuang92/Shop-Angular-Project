@@ -1,7 +1,8 @@
+import { SubSink } from 'subsink';
 import { switchMap,map} from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { UserService } from './user.service';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 
 //FireBase
 import {AngularFireAuth } from '@angular/fire/auth';
@@ -14,8 +15,9 @@ import { Router, ActivatedRoute, CanActivate } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService {
- 
+export class AuthenticationService implements OnDestroy{
+  private subs = new SubSink();
+
   constructor(
     private afAuth: AngularFireAuth, 
     private router:Router,
@@ -23,7 +25,7 @@ export class AuthenticationService {
     private userService: UserService) { 
       
     }
-
+ 
 
   login(){
     //setting the return URL to returnUrl or home page
@@ -36,9 +38,11 @@ export class AuthenticationService {
     .then(()=>{
 
       //Getting user and call userService to save user information
-      this.afAuth.authState.subscribe(user => {
-        if(user) this.userService.save(user);
-      });
+      this.subs.add(
+        this.afAuth.authState.subscribe(user => {
+          if(user) this.userService.save(user);
+        })
+      ); 
         
       //redurected user to the returnUrl
       let returnUrl = localStorage.getItem('returnUrl');
@@ -71,4 +75,9 @@ export class AuthenticationService {
       })
     );
   }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
+
 }

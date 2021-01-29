@@ -9,19 +9,19 @@ import firebase from 'firebase/app';
 })
 export class UserService {
 
-  private userTable = '/users/';
+  private tableName = '/users/';
   constructor(private afAuth: AngularFireAuth, private db:AngularFireDatabase) { }
 
   //precondition: user must not be empty
-  //poscondition: save user into angular firebase Database with userTable
+  //poscondition: save user into angular firebase Database with tableName
   save(user: firebase.User){
-    this.db.object(this.userTable + user.uid).update({
+    this.db.object(this.tableName + user.uid).update({
       name: user.displayName,
       email: user.email,
 
     });
   }
   get(uid:string) : AngularFireObject<AppUser>{
-    return this.db.object(this.userTable + uid);
+    return this.db.object(this.tableName + uid);
   }
 }
