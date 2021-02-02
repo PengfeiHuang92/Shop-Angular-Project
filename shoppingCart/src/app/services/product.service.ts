@@ -10,6 +10,11 @@ export class ProductService {
   constructor(private db: AngularFireDatabase) { }
 
   create(product:Product){
+
     return this.db.list(this.tableName).push(product);
+  }
+
+  getAll(){
+    return this.db.list(this.tableName);
   }
 }
