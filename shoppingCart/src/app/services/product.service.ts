@@ -1,4 +1,5 @@
-import { AngularFireDatabase } from '@angular/fire/database';
+import { Observable } from 'rxjs';
+import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product';
 @Injectable({
@@ -16,5 +17,17 @@ export class ProductService {
 
   getAll(){
     return this.db.list(this.tableName);
+  }
+  
+  getProduct(id:string):AngularFireObject<Product>{
+    return this.db.object(this.tableName + id);
+  }
+
+  updateProduct(productId:string,product:Product){
+    return this.db.object(this.tableName + productId).update(product);
+  }
+
+  deleteProduct(productId:string){
+     return this.db.object(this.tableName + productId).remove();
   }
 }

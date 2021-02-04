@@ -1,12 +1,13 @@
 <div class="row">
     <div class="col-md-6">
         <form [formGroup]="form" (ngSubmit)="submit()">
-
             <div class="form-group">
                 <label for="title">Title</label>
-                <input formControlName="title" id="title" type="text" class="form-control">
-                <div *ngIf="title?.touched && title?.invalid " class="alert alert-danger">
-                    <div *ngIf="title?.errors?.required">Title can not be empty</div>
+                <input formControlName="title" id="title" type="text" 
+                [(ngModel)]="product.title" 
+                class="form-control">
+                <div *ngIf="itemTitle?.touched && itemTitle?.invalid " class="alert alert-danger">
+                    <div *ngIf="itemTitle?.errors?.required">Title can not be empty</div>
                 </div>
             </div>
 
@@ -16,48 +17,56 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">$</span>
                     </div>
-                    <input formControlName="price" id="price" type="number" class="form-control"
-                        aria-label="Amount (to the nearest dollar)">
+                    <input formControlName="price" id="price" type="number" 
+                    [(ngModel)]="product.price"
+                    class="form-control" aria-label="Amount (to the nearest dollar)">
                 </div>
-                <div *ngIf="price?.touched && price?.invalid " class="alert alert-danger">
-                    <div *ngIf="price?.errors?.required">Price can not be empty</div>
-                    <div *ngIf="price?.errors?.min">Price can not be negative number</div>
+                <div *ngIf="itemPrice?.touched && itemPrice?.invalid " class="alert alert-danger">
+                    <div *ngIf="itemPrice?.errors?.required">Price can not be empty</div>
+                    <div *ngIf="itemPrice?.errors?.min">Price can not be negative number</div>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="category">Category</label>
-                <select formControlName="category" id="category" type="text" class="form-control">
+                <select formControlName="category" id="category" 
+                [(ngModel)]="product.category" 
+                type="text" class="form-control">
                     <option value=""></option>
-                    <option *ngFor="let category of categoryList$ | async " [value]="category.name">
+                    <option *ngFor="let category of categoryList$ | async" [value]="category.name">
                         {{category.name}}
                     </option>
                 </select>
-                <div *ngIf="category?.touched && category?.invalid " class="alert alert-danger">
-                    <div *ngIf="category?.errors?.required">Category can not be empty</div>
+                <div *ngIf="itemCategory?.touched && itemCategory?.invalid " class="alert alert-danger">
+                    <div *ngIf="itemCategory?.errors?.required">Category can not be empty</div>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="imgUrl">Image URL</label>
-                <input formControlName="imgUrl" id="imgUrl" type="text" class="form-control">
-                <div *ngIf="imgUrl?.touched && imgUrl?.invalid " class="alert alert-danger">
-                    <div *ngIf="imgUrl?.errors?.required">Image URL can not be empty</div>
-                    <div *ngIf="imgUrl?.errors?.pattern">Image URL is invalid </div>
+                <input formControlName="imgUrl" id="imgUrl" 
+                       [(ngModel)]="product.imgUrl" 
+                       type="text" class="form-control">
+                <div *ngIf="itemImgUrl?.touched && itemImgUrl?.invalid " class="alert alert-danger">
+                    <div *ngIf="itemImgUrl?.errors?.required">Image URL can not be empty</div>
+                    <div *ngIf="itemImgUrl?.errors?.pattern">Image URL is invalid </div>
                     
                 </div>
             </div>
-            <button [disabled]="form.invalid" class="btn btn-primary">Submit</button>
+            <button [disabled]="form.invalid" class="btn btn-primary" >{{buttonLabel}}</button>
+            <button class="btn btn-danger" style="float:right" type="button" *ngIf="productId" (click)="delete()">Delete</button>
         </form>
     </div>
     <div class="col-md-6">
-        <div class="card" style="width: 18rem;">
-            <img [src]="imgUrl?.value" class="card-img-top">
+        <!--This div only showing when product has title, category or price -->
+        <div *ngIf="product.title || product.category || product.price " class="card" style="width: 18rem;">
+            <!-- image showing only if the imgUrl match the pattern -->
+            <img [src]="product.imgUrl" class="card-img-top" *ngIf="!itemImgUrl?.errors?.pattern">
+
             <div class="card-body">
-                <h5 class="card-title">{{title?.value}}</h5>
-                <p class="card-text">{{category.value}}</p>
-                <p class="card-text">{{price?.value | currency:'USD':true}}</p>
-                
+                <h5 class="card-title">{{product.title}}</h5>
+                <p class="card-text">{{product.category}}</p>
+                <p class="card-text">{{product.price | currency:'USD':'symbol'}}</p>
             </div>
         </div>
     </div>

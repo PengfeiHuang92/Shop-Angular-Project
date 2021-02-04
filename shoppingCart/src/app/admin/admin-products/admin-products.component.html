@@ -1,18 +1,26 @@
-<a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
+<p>
+    <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
+</p>
 
-<table class="table table-striped">
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped row-border hover">
     <thead>
-        <th> Title </th>
-        <th> Price </th>
-        <th>  </th>
+      <tr>
+        <th>Title</th>
+        <th>Price</th>
+        <th></th>
+      </tr>
     </thead>
-    <tbody> 
-        <tr *ngFor=" let p of products$ | async">
-            <td> {{p.title}}</td>
-            <td> {{p.price}}</td>
-            <td> 
-                <a [routerLink] = "['/admin/products/new',p.$key]"> Edit </a>
-            </td>
-        </tr>
+    <tbody>
+      <tr *ngFor="let p of products ">
+        <td>{{ p.payload.val().title }}</td>
+        <td>{{ p.payload.val().price | currency:'USD':'symbol' }}</td>
+        <td>
+            <a [routerLink] = "['/admin/products/eidt/',p.key]"> Edit </a>
+        </td>
+      </tr>
     </tbody>
-</table>
+  </table>
+
+
+
+

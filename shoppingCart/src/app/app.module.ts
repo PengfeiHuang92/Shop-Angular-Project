@@ -38,6 +38,10 @@ import { UserService } from './services/user.service';
 import { AdminAuthGuardService } from './services/admin-auth-guard.service';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { ProductService } from './services/product.service';
+
+//Data Table: http://l-lin.github.io/angular-datatables/#/welcome
+import { DataTablesModule } from 'angular-datatables';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,6 +70,9 @@ import { ProductService } from './services/product.service';
     //ngform 
     FormsModule,
     ReactiveFormsModule,
+    
+    //Data Table
+    DataTablesModule,
 
     //Router
     RouterModule.forRoot([
@@ -84,7 +91,7 @@ import { ProductService } from './services/product.service';
         canActivate:[AuthGuardService,AdminAuthGuardService]
       },
       { 
-        path:'admin/products/new:id', component: ProductFormComponent, 
+        path:'admin/products/eidt/:id', component: ProductFormComponent, 
         canActivate:[AuthGuardService,AdminAuthGuardService]
       },
       { 
