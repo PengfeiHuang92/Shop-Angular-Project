@@ -16,15 +16,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   productList: any[] = [];
   filterProduct: any[] = [];
-  categoryList: any[] = [];
-  category: string | null = "";
+  
+  category: string  = "";
   private subs = new SubSink();
   constructor(
     private productService: ProductService,
     private categortyService: CategoryService,
     private route: ActivatedRoute) { }
-
-
 
   ngOnInit(): void {
     
@@ -39,20 +37,17 @@ export class ProductsComponent implements OnInit, OnDestroy {
         )
         //Get filterProduct List based on the category
         .subscribe(params => {
-          this.category = params.get('category');
-
+          //Get the current selected category
+          let category = params.get('category');
+          //If category does not exist, give it empty string
+          this.category = (category) ? this.category = category : this.category="";
+          //Show the filterProduct bBased on the category 
           this.filterProduct = (this.category) ?
             this.productList.filter(product => product.payload.val().category == this.category) :
             this.productList;
         })
     );
-    //Get Product list from ProductService
-
-    this.subs.add(
-      this.categortyService.getCategory().subscribe(category => {
-        if (category) this.categoryList = category;
-      })
-    );
+    
   }
 
   ngOnDestroy(): void {

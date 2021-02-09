@@ -39,8 +39,10 @@ import { AdminAuthGuardService } from './services/admin-auth-guard.service';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { ProductService } from './services/product.service';
 
-//Data Table: http://l-lin.github.io/angular-datatables/#/welcome
+//Data Table:  
 import { DataTablesModule } from 'angular-datatables';
+import { CategoryFilterComponent } from './products/category-filter/category-filter.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { DataTablesModule } from 'angular-datatables';
     ShoppingCartComponent,
     AdminOrdersComponent,
     AdminProductsComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    CategoryFilterComponent,
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,
