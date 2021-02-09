@@ -1,22 +1,21 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from './../../services/product.service';
-import { Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from './../../services/category.service';
 import { take } from 'rxjs/operators';
 import { Product } from 'src/app/models/product';
-import { Category } from 'src/app/models/category';
-import { Observable, Observer } from 'rxjs';
+
 
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.css']
 })
-export class ProductFormComponent{
+export class ProductFormComponent implements OnInit{
 
   //list of categoryList
-  categoryList$:any;
+  categoryList:any;
 
   //create a empty product object
   product = new Product('','','','');
@@ -67,10 +66,16 @@ export class ProductFormComponent{
     private categoryService : CategoryService,
     private productService : ProductService,
     private router: Router,
-    private route: ActivatedRoute) { 
+    private route: ActivatedRoute) {  }
+    
+  ngOnInit(): void {
 
-    this.categoryList$ = categoryService.getCategory();
-   
+    //list of Category
+     this.categoryService.getCategory().subscribe(category=>{
+      this.categoryList = category;
+    });
+    
+    //id that pass in from admin-product
     let id = this.route.snapshot.paramMap.get('id');
     if(id){
       //Showing Update button label instead 
@@ -89,7 +94,6 @@ export class ProductFormComponent{
       //Saving the product id for update
       this.productId = id;
     } 
-
   }
   
 
@@ -106,7 +110,9 @@ export class ProductFormComponent{
     this.form.reset();
     this.router.navigate(['/admin/admin-products']);
   }
-
+  //Postcondistion: Pop up cocnfirm information.
+  //                When "Yes" is chosen, the selected prodcut is deleted by calling deleteProduct method.
+  //                Wehn "No" is chosen, return.
   delete(){
     if(confirm("Are you sure that you would like to delete this item?")){
       this.productService.deleteProduct(this.productId)

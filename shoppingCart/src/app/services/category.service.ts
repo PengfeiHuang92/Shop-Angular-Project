@@ -12,8 +12,8 @@ export class CategoryService {
   constructor(private db: AngularFireDatabase) { }
 
   //return a Observable with type Catergory and order by child
-  getCategory(): Observable<Category>{
+  getCategory(): Observable<Category[]>{
     //we do not need the id valie so at here we are calling valueChanges method instead of snapshotChanges 
-    return this.db.list(this.tableName, ref => ref.orderByChild('name')).valueChanges();
+    return this.db.list(this.tableName, ref => ref.orderByChild('name')).snapshotChanges();
   }
 }
