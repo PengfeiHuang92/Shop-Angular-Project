@@ -36,5 +36,6 @@ Url: https://timhuangshoppingcart.web.app
 
 .Create Admin-product page
 .Implement CREATE READ UPDATE DELETE product under admin-product page
+.Display the data table with "DataTablesModule" (http://l-lin.github.io/angular-datatables/#/welcome) 
 .Create home page and list categories and products
 .Implement home page Category filter
