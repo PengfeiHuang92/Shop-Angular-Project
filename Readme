@@ -30,3 +30,12 @@ Url: https://timhuangshoppingcart.web.app
 
 .Fixed the navigation bar does not show on small screen. // added isNavbarCollapsed
 .Hided navigation link when user clicked on small screen. // hideNav()
+
+``````````````````````````````
+1/28/202 ~ 2/8/2021
+
+.Create Admin-product page
+.Implement CREATE READ UPDATE DELETE product under admin-product page
+.Display the data table with "DataTablesModule" (http://l-lin.github.io/angular-datatables/#/welcome) 
+.Create home page and list categories and products
+.Implement home page Category filter
