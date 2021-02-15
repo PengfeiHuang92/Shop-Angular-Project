@@ -1,5 +1,5 @@
 
-import { CategoryService } from './services/category.service';
+
 import { NgModule } from '@angular/core';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
@@ -38,11 +38,14 @@ import { UserService } from './services/user.service';
 import { AdminAuthGuardService } from './services/admin-auth-guard.service';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { ProductService } from './services/product.service';
+import { CategoryService } from './services/category.service';
+import { ShoppingCartService } from './services/shopping-cart.service';
 
 //Data Table:  
 import { DataTablesModule } from 'angular-datatables';
 import { CategoryFilterComponent } from './products/category-filter/category-filter.component';
 import { ProductCardComponent } from './product-card/product-card.component';
+
 
 @NgModule({
   declarations: [
@@ -114,7 +117,9 @@ import { ProductCardComponent } from './product-card/product-card.component';
     AdminAuthGuardService,
     UserService,
     ProductService,
-    CategoryService],
+    CategoryService,
+    ShoppingCartService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,6 +3,31 @@
     <div class="card-body">
         <h5 class="card-title">{{product.payload.val().title}}</h5>
         <p class="card-text">{{product.payload.val().price | currency:'USD':'symbol'}}</p>
-        <a href="#" *ngIf="showbutton" class="btn btn-primary">Add to Cart</a>
+    </div>
+
+    <div class="card-footer" *ngIf="showbutton">
+        <button *ngIf="getQuantity() === 0 else productQuantity" (click)="addToCart()"
+            class="btn btn-primary btn-block">
+            Add to Cart
+        </button>
+
+        <ng-template #productQuantity>
+            <div class="row no-gutters">
+                <div class="col-2">
+                    <button (click)="removeFromCart()" class="btn btn-primary btn-block">-</button>
+                </div>
+
+                <div class="col text-center">
+                    {{getQuantity()}}
+                </div>
+
+                <div class="col-2">
+                    <button (click)="addToCart()" class="btn btn-primary btn-block">+</button>
+                </div>
+            </div>
+
+
+        </ng-template>
+
     </div>
 </div>

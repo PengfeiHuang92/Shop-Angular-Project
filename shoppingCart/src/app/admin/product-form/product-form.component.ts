@@ -18,7 +18,7 @@ export class ProductFormComponent implements OnInit{
   categoryList:any;
 
   //create a empty product object
-  product = new Product('','','','');
+  product :any;
   productId = "";
 
   //button label
@@ -66,7 +66,9 @@ export class ProductFormComponent implements OnInit{
     private categoryService : CategoryService,
     private productService : ProductService,
     private router: Router,
-    private route: ActivatedRoute) {  }
+    private route: ActivatedRoute) { 
+      
+     }
     
   ngOnInit(): void {
 

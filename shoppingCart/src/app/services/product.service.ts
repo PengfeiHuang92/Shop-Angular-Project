@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product';
@@ -10,11 +11,10 @@ export class ProductService {
   constructor(private db: AngularFireDatabase) { }
 
   create(product:Product){
-
     return this.db.list(this.tableName).push(product);
   }
 
-  getAll():AngularFireList<Product>{
+  getAll(){
     return this.db.list(this.tableName);
   }
   

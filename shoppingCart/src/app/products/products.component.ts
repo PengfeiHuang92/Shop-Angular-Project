@@ -1,5 +1,5 @@
-import { switchMap } from 'rxjs/operators';
-import { Category } from 'src/app/models/category';
+import { ShoppingCartService } from './../services/shopping-cart.service';
+import { switchMap, take } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
 import { CategoryService } from './../services/category.service';
@@ -16,15 +16,18 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   productList: any[] = [];
   filterProduct: any[] = [];
-  
+  shoppingCart : any; //list of the prodcts in the shoppingCart
   category: string  = "";
+
   private subs = new SubSink();
+
   constructor(
     private productService: ProductService,
     private categortyService: CategoryService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private shoppingCartService : ShoppingCartService) { }
 
-  ngOnInit(): void {
+  async ngOnInit(){
     
     this.subs.add(
       this.productService.getAll()
@@ -47,6 +50,14 @@ export class ProductsComponent implements OnInit, OnDestroy {
             this.productList;
         })
     );
+
+        //getting shopping cart 
+        let cart = await this.shoppingCartService.getCart();
+        //updating shoppingCart
+        this.subs.add(
+          cart?.snapshotChanges()
+          .subscribe(cart =>this.shoppingCart = cart.payload.exportVal().items)
+        );
     
   }
 
