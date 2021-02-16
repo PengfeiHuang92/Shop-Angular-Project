@@ -45,6 +45,7 @@ import { ShoppingCartService } from './services/shopping-cart.service';
 import { DataTablesModule } from 'angular-datatables';
 import { CategoryFilterComponent } from './products/category-filter/category-filter.component';
 import { ProductCardComponent } from './product-card/product-card.component';
+import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
 
 
 
@@ -63,7 +64,8 @@ import { ProductCardComponent } from './product-card/product-card.component';
     AdminProductsComponent,
     ProductFormComponent,
     CategoryFilterComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    ProductQuantityComponent
   ],
   imports: [
     BrowserModule,

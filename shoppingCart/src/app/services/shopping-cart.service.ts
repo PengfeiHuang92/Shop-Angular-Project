@@ -1,9 +1,10 @@
-import { take } from 'rxjs/operators';
+import { take, map } from 'rxjs/operators';
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Product } from '../models/product';
 import { SubSink } from 'subsink';
 import { ShoppingCart } from '../models/shopping-cart';
+import { Observer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -29,11 +30,10 @@ export class ShoppingCartService implements OnDestroy {
   // Input:  none 
   // Output: AngularFireObject<unknown>
   // Preconditions: cartId must be valid
-  async getCart() :Promise<AngularFireObject<ShoppingCart> | null> {
+  async getCart(): Promise<AngularFireObject<ShoppingCart> | null> {
     //using await change the return type from "Promise<string | null>" to "string | null"
-    let cartId =  await this.getOrCreateCartId();
-    console.log(cartId);
-    if(cartId) return this.db.object(this.tableName + cartId);
+    let cartId = await this.getOrCreateCartId();
+    if (cartId) return this.db.object(this.tableName + cartId)
     return null;
   }
 
@@ -53,7 +53,7 @@ export class ShoppingCartService implements OnDestroy {
       }
     } return cartId;
 
-  
+
   }
 
   // Method: getItem
@@ -61,7 +61,7 @@ export class ShoppingCartService implements OnDestroy {
   // Input:  cartId, productId 
   // Output: AngularFireObject<unknown>
   // Preconditions: none
-  private async getItem( productId: string) {
+  private async getItem(productId: string) {
     let cartId = await this.getOrCreateCartId();
     return this.db.object(this.tableName + cartId + '/items/' + productId);
   }
@@ -72,17 +72,17 @@ export class ShoppingCartService implements OnDestroy {
   // Output: none
   // Preconditions: product and productId must be valid
   addToCart(product: Product, productId: string) {
-    this.updateQuantity(product,productId,1); 
+    this.updateQuantity(product, productId, 1);
   }
   removeFromCart(product: Product, productId: string) {
-    this.updateQuantity(product,productId,-1); 
+    this.updateQuantity(product, productId, -1);
   }
 
- private async updateQuantity(product: Product, productId: string, update:number){
-    let cartId =  await this.getOrCreateCartId();
-   
+  private async updateQuantity(product: Product, productId: string, update: number) {
+    let cartId = await this.getOrCreateCartId();
+
     if (cartId) {
-      let item$ =  await this.getItem(productId);
+      let item$ = await this.getItem(productId);
       this.sub.add(
         item$.snapshotChanges().pipe(take(1)).subscribe(item => {
 
@@ -95,7 +95,8 @@ export class ShoppingCartService implements OnDestroy {
       );
     }
   }
-  
+
+
 
 
   //unsubscribe
