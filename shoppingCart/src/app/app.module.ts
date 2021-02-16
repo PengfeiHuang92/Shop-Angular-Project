@@ -47,6 +47,7 @@ import { CategoryFilterComponent } from './products/category-filter/category-fil
 import { ProductCardComponent } from './product-card/product-card.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

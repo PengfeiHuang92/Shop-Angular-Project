@@ -12,7 +12,15 @@
     <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/shopping-cart" (click)='hideNav()'>Shopping Cart</a>
+          <a class="nav-link" routerLink="/shopping-cart" (click)='hideNav()'>
+            Shopping Cart
+            <ng-container  >
+              <span class="badge rounded-pill bg-light text-dark"
+              *ngIf="shoppingCartTotalQuantity !=0 "
+              >{{shoppingCartTotalQuantity}}</span>
+        
+            </ng-container>  
+            </a>
         </li>
         <li *ngIf="!appUser" class="nav-item">
           <a class="nav-link" routerLink="/login" (click)='hideNav()'>Login</a>

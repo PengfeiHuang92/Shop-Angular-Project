@@ -1,8 +1,9 @@
 import { take } from 'rxjs/operators';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Product } from '../models/product';
 import { SubSink } from 'subsink';
+import { ShoppingCart } from '../models/shopping-cart';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class ShoppingCartService implements OnDestroy {
   // Input:  none 
   // Output: AngularFireObject<unknown>
   // Preconditions: cartId must be valid
-  async getCart() {
+  async getCart() :Promise<AngularFireObject<ShoppingCart> | null> {
     //using await change the return type from "Promise<string | null>" to "string | null"
     let cartId =  await this.getOrCreateCartId();
     console.log(cartId);
@@ -36,6 +37,7 @@ export class ShoppingCartService implements OnDestroy {
     return null;
   }
 
+  
   // Method: getOrCreateCartId
   // Description: a async methon that returns a shopping cart id 
   // Input:  none 
