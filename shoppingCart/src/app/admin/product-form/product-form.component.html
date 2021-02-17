@@ -2,24 +2,22 @@
     <div class="col-md-6">
         <form [formGroup]="form" (ngSubmit)="submit()">
             <div class="form-group">
-                <label for="title">Title</label>
-                <input formControlName="title" id="title" type="text" 
-                [(ngModel)]="product.title" 
-                class="form-control">
-                <div *ngIf="itemTitle?.touched && itemTitle?.invalid " class="alert alert-danger">
+                <label for="title">Title</label> 
+                <input formControlName="title" id="title" type="text" class="form-control" >
+              
+                <div *ngIf="itemTitle?.touched && itemTitle?.invalid" class="alert alert-danger">
                     <div *ngIf="itemTitle?.errors?.required">Title can not be empty</div>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="price">Price</label>
+                <label for="itemPrice">Price</label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">$</span>
                     </div>
-                    <input formControlName="price" id="price" type="number" 
-                    [(ngModel)]="product.price"
-                    class="form-control" aria-label="Amount (to the nearest dollar)">
+                    <input formControlName="price" id="itemPrice" type="number" 
+                        class="form-control" aria-label="Amount (to the nearest dollar)">
                 </div>
                 <div *ngIf="itemPrice?.touched && itemPrice?.invalid " class="alert alert-danger">
                     <div *ngIf="itemPrice?.errors?.required">Price can not be empty</div>
@@ -28,10 +26,9 @@
             </div>
 
             <div class="form-group">
-                <label for="category">Category</label>
-                <select formControlName="category" id="category" 
-                [(ngModel)]="product.category" 
-                type="text" class="form-control">
+                <label for="itemCategory">Category</label>
+                <select formControlName="category" id="itemCategory" type="text"
+                    class="form-control">
                     <option value=""></option>
                     <option *ngFor="let category of categoryList" [value]="category.payload.val().name">
                         {{category.payload.val().name}}
@@ -43,29 +40,29 @@
             </div>
 
             <div class="form-group">
-                <label for="imgUrl">Image URL</label>
-                <input formControlName="imgUrl" id="imgUrl" 
-                       [(ngModel)]="product.imgUrl" 
-                       type="text" class="form-control">
+                <label for="itemImgUrl">Image URL</label>
+                <input formControlName="imgUrl" id="itemImgUrl"  type="text"
+                    class="form-control">
                 <div *ngIf="itemImgUrl?.touched && itemImgUrl?.invalid " class="alert alert-danger">
                     <div *ngIf="itemImgUrl?.errors?.required">Image URL can not be empty</div>
                     <div *ngIf="itemImgUrl?.errors?.pattern">Image URL is invalid </div>
-                    
+
                 </div>
             </div>
-            <button [disabled]="form.invalid" class="btn btn-primary" >{{buttonLabel}}</button>
-            <button class="btn btn-danger" style="float:right" type="button" *ngIf="productId" (click)="delete()">Delete</button>
+            <button [disabled]="form.invalid" class="btn btn-primary">{{buttonLabel}}</button>
+            <button class="btn btn-danger" style="float:right" type="button" *ngIf="productId"
+                (click)="delete()">Delete</button>
         </form>
     </div>
     <div class="col-md-6">
         <!--This div only showing when product has title, category or price -->
-        <div *ngIf="product.title || product.category || product.price " class="card" style="width: 18rem;">
+        <div  *ngIf="pTitle || pPrice || pImgUrl " class="card" style="width: 18rem;">
             <!-- image showing only if the imgUrl match the pattern -->
-            <img [src]="product.imgUrl" class="card-img-top" *ngIf="!itemImgUrl?.errors?.pattern">
+            <img [src]="pImgUrl" class="card-img-top" *ngIf="!itemImgUrl?.errors?.pattern">
 
             <div class="card-body">
-                <h5 class="card-title">{{product.title}}</h5>
-                <p class="card-text">{{product.price | currency:'USD':'symbol'}}</p>
+                <h5 class="card-title">{{pTitle}}</h5>
+                <p class="card-text">{{pPrice | currency:'USD':'symbol'}}</p>
             </div>
         </div>
     </div>

@@ -1,8 +1,7 @@
-
-    <a class="list-group-item list-group-item-action active" routerLink="/" [queryParams]="{category:null}"
-        [class.active]='category==""'>All</a>
-    <div *ngFor="let c of categoryList" id="list-tab" role="tablist" routerLink="/"
-        [queryParams]="{category:c.payload.val().name}">
-        <a class="list-group-item list-group-item-action active"
-            [class.active]="c.payload.val().name==category">{{c.payload.val().name}}</a>
-    </div>
+<a class="list-group-item list-group-item-action active" routerLink="/" [queryParams]="{category:null}"
+    [class.active]='category==""'>All</a>
+<div *ngFor="let c of categoryList" id="list-tab" role="tablist" routerLink="/"
+    [queryParams]="{category:c.payload.val().name}">
+    <a class="list-group-item list-group-item-action active"
+        [class.active]="c.payload.val().name==category">{{c.payload.val().name}}</a>
+</div>

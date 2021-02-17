@@ -7,3 +7,7 @@
 .card-footer button{
     cursor:pointer;
 }
+img{
+    height: 140px;
+    width: 280px;
+}

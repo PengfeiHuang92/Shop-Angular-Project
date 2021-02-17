@@ -10,7 +10,7 @@ import { Product } from '../models/product';
 })
 export class ShoppingCartComponent implements OnInit {
   productList : any[] = [];
-  productIdList : string[]=[];
+  productIdList : any[]=[];
   productTotalQuantity : number = 0;
   totalPrice : number = 0;
   private subs = new SubSink();

@@ -11,18 +11,20 @@ export class CategoryFilterComponent implements OnInit,OnDestroy {
   //input property 
   @Input('category') category: string | null = "";
 
-  categoryList: any[] = [];
+  categoryList: any;
   private subs  = new SubSink();
-  constructor( private categortyService: CategoryService) { }
+  constructor( private categoryService: CategoryService) { }
   
   ngOnInit(): void {
     //Get Product list from ProductService
 
     this.subs.add(
-      this.categortyService.getCategory().subscribe(category => {
+      this.categoryService.getCategory().subscribe(category => {
         if (category) this.categoryList = category;
+   
       })
     );
+   
   }
 
   ngOnDestroy(): void {
