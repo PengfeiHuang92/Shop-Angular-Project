@@ -55,8 +55,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
         let cart = await this.shoppingCartService.getCart();
         //updating shoppingCart
         this.subs.add(
-          cart?.snapshotChanges()
-          .subscribe(cart =>this.shoppingCart = cart.payload.exportVal().items)
+          cart.subscribe(cart =>{
+            if(cart) this.shoppingCart = cart.items;
+          })
         );
     
   }

@@ -1,7 +1,6 @@
 import { SubSink } from 'subsink';
 import { ShoppingCartService } from './../services/shopping-cart.service';
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../models/product';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -22,15 +21,13 @@ export class ShoppingCartComponent implements OnInit {
     let cart = await this.shoppingCartService.getCart();
     //updating shoppingCart
     this.subs.add(
-      cart?.snapshotChanges()
-        .subscribe(cart =>{
-          this.productIdList =Object.keys(cart.payload.exportVal().items);
-          this.productList = cart.payload.exportVal().items;
+      cart.subscribe(cart =>{
+          this.productIdList = Object.keys(cart.items) || null;
+          this.productList = cart.items;
           for (let productId in this.productList) {
             this.productTotalQuantity +=  this.productList[productId].quantity;
-            this.totalPrice += (this.productList[productId].product.price * this.productList[productId].quantity);
+            this.totalPrice += (this.productList[productId].price * this.productList[productId].quantity);
           }
-          
         } ));
 
   }

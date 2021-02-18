@@ -1,10 +1,11 @@
+import { Category } from './../models/category';
 import { take, map } from 'rxjs/operators';
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Product } from '../models/product';
 import { SubSink } from 'subsink';
 import { ShoppingCart } from '../models/shopping-cart';
-import { Observer } from 'rxjs';
+import { Observer, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,11 +31,13 @@ export class ShoppingCartService implements OnDestroy {
   // Input:  none 
   // Output: AngularFireObject<unknown>
   // Preconditions: cartId must be valid
-  async getCart(): Promise<AngularFireObject<ShoppingCart> | null> {
+  async getCart(): Promise<Observable<ShoppingCart>> {
     //using await change the return type from "Promise<string | null>" to "string | null"
     let cartId = await this.getOrCreateCartId();
-    if (cartId) return this.db.object(this.tableName + cartId)
-    return null;
+    if (cartId) return this.db.object(this.tableName + cartId).snapshotChanges()
+      .pipe(map(x=>new ShoppingCart(x.payload.exportVal()?.items)));
+    return this.db.object(this.tableName + cartId).snapshotChanges()
+    .pipe(map(x=>new ShoppingCart(x.payload.exportVal()?.items)));;
   }
 
   
@@ -90,7 +93,13 @@ export class ShoppingCartService implements OnDestroy {
           let itemQuantity = (item.payload.exists()) ? item.payload.exportVal().quantity : 0;
 
           //update the shopping item 
-          item$.update({ product: product, quantity: itemQuantity + update });
+         // item$.update({ product: product, quantity: itemQuantity + update });
+         item$.update({ 
+           title: product.title,
+           category: product.category,
+           imgUrl: product.imgUrl,
+           price: product.price,
+           quantity: itemQuantity + update });
         })
       );
     }
