@@ -49,3 +49,10 @@ Url: https://timhuangshoppingcart.web.app
 .fiexed the bug of product-form page.
   ..ngmodel can not be use within formGroup. 
     ..used "this.form.controls['title'].valueChanges.subscribe(x => this.pTitle = x)" insteal of [(ngModel)] = "product.title"
+
+2/18/2021
+
+ .fixed the bug that order number does not show up when first time load the page.
+    . Reason: when frist time the page is loaded, navigation bar will create a new cartID for shopping Cart since there were delay of getting cartID from local storage
+    . Solution: in "bs-navbar.component.ts", used setTimeout() to delay getting cartId 
+ .Create shoppingCart class and implement totoalItemQuantity property
