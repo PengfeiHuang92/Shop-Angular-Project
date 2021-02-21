@@ -10,14 +10,12 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let productId of productIdList">
-            <ng-container *ngIf="productList[productId].quantity !=0"> 
-                <td>{{productList[productId].title}}</td>
-                <!-- <td>{{productList[product].quantity}}</td> -->
-                <product-quantity [product]="productList[productId]" [productId]="productList[productId].key" [shoppingCart]="productList" ></product-quantity>
-                <td>{{productList[productId].price | currency:'USD':'symbol'  }}</td>
+        <tr *ngFor="let product of productList">
+            <ng-container *ngIf="product.quantity !=0"> 
+                <td>{{product.title}}</td>
+                <product-quantity [product]="product" [productId]="product.key" [shoppingCart]="productList" ></product-quantity>
+                <td>{{product.price | currency:'USD':'symbol'  }}</td>
             </ng-container>
-           
         </tr>
     </tbody>
     <tfoot>
