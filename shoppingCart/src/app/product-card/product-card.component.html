@@ -12,7 +12,7 @@
         </button>
 
         <ng-template #productQuantity>
-            <product-quantity [product]="product" [shoppingCart]="shoppingCart"></product-quantity>
+            <product-quantity [product]="product.payload.exportVal()" [productId]="product.key" [shoppingCart]="shoppingCart"></product-quantity>
         </ng-template>
 
     </div>

@@ -1,3 +1,4 @@
+import { ProductQuantityComponent } from './../product-quantity/product-quantity.component';
 import { ShoppingCartService } from './../services/shopping-cart.service';
 import { Component, Input, OnInit } from '@angular/core';
 
@@ -33,14 +34,18 @@ export class ProductCardComponent {
   // Output: quantity type number
   // Preconditions: product's quantity is returned 
   getQuantity() : number {
-
+    let quantity = 0
     //if shoppingCart does not exist, return 0
     if (!this.shoppingCart) return 0;
 
-    let item = this.shoppingCart[this.product.key];
-
+    for(let i in this.shoppingCart) {
+      if(this.shoppingCart[i].key ===this.product.key){
+        quantity = this.shoppingCart[i].quantity;
+      }
+    }
+    
     //if item does not exit, reutrn 0, otherwaise return item quantity
-    return item ? item.quantity : 0;
+    return quantity;
   }
 
 }

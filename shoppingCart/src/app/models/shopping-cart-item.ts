@@ -1,6 +1,6 @@
 import { Product } from "./product";
 
-export interface ShoppingCartItem{
-    product: Product;
-    quantity : number;
+export class ShoppingCartItem{
+
+    constructor(public title:string, public price: number, public imgUrl:string,public category:string,public quantity:number,public key?:string){}
 }
