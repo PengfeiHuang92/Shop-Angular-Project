@@ -34,8 +34,25 @@ Url: https://timhuangshoppingcart.web.app
 ``````````````````````````````
 1/28/202 ~ 2/8/2021
 
-.Create Admin-product page
-.Implement CREATE READ UPDATE DELETE product under admin-product page
-.Display the data table with "DataTablesModule" (http://l-lin.github.io/angular-datatables/#/welcome) 
-.Create home page and list categories and products
-.Implement home page Category filter
+.Created Admin-product page
+.Implemented CREATE READ UPDATE DELETE product under admin-product page
+.Displaied the data table with "DataTablesModule" (http://l-lin.github.io/angular-datatables/#/welcome) 
+.Created home page and list categories and products
+.Implemented home page Category filter
+
+------------------------------
+2/9/2021 ~ 2/17/2021
+
+.Created product-quantity component 
+.Implemented "add to card", "-" and "+" features of product-quantity
+.Implemented Shopping cart page
+.fiexed the bug of product-form page.
+  ..ngmodel can not be use within formGroup. 
+    ..used "this.form.controls['title'].valueChanges.subscribe(x => this.pTitle = x)" insteal of [(ngModel)] = "product.title"
+
+2/18/2021
+
+ .fixed the bug that order number does not show up when first time load the page.
+    . Reason: when frist time the page is loaded, navigation bar will create a new cartID for shopping Cart since there were delay of getting cartID from local storage
+    . Solution: in "bs-navbar.component.ts", used setTimeout() to delay getting cartId 
+ .Create shoppingCart class and implement totoalItemQuantity property
