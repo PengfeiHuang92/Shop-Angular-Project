@@ -32,28 +32,21 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
     this.subs.add(
       this.authService.getAppUser().subscribe((appUser: AppUser) => this.appUser = appUser),
 
+      
     );
   
-    //Wait for the cardId to be created then read the carts
-    setTimeout(async ()=>{
+ 
+
+   //Wait for the cardId to be created then read the carts
+   setTimeout(async ()=>{
     //getting shopping cart 
     let carts$ = await this.shoppingCartService.getCart();
     //counting shopping cart items
  
-    // carts$.subscribe(cart => {
-    //     this.shoppingCartTotalQuantity = 0
-    //     if (cart?.items) {
-    //       for (let productId in cart.items) {
-    //         this.shoppingCartTotalQuantity += cart.items[productId].quantity;
-    //       }
-    //     }
-    //   }
-    //   )
-    carts$.subscribe(cart => this.shoppingCartTotalQuantity = cart.totalItemQuantity);
+    this.subs.add(
+      carts$.subscribe(cart => this.shoppingCartTotalQuantity = cart.totalItemQuantity));
     },1000);
     
-
-
 
 
   }

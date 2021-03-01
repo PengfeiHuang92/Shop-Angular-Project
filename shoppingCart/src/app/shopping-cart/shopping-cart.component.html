@@ -1,28 +1,45 @@
 <p>
-    You have {{productTotalQuantity}} items in your shopping cart
+    <span class="shoppingInfo">You have {{productTotalQuantity}} items in your shopping cart</span>
+    <span class="emptyButton" *ngIf="totalPrice > 0">
+        <button class="btn btn-light btn-sm" (click)="emptyCart()">Empty Shopping Cart</button>
+    </span>
 </p>
-<table class="table">
+
+<table class=" table">
     <thead>
         <tr>
+            <th style="width:80px"></th>
             <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
+            <th class="text-center" style="width:230px">Quantity</th>
+            <th class="text-right" style="width:200px">Price</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let product of productList">
-            <ng-container *ngIf="product.quantity !=0"> 
-                <td>{{product.title}}</td>
-                <product-quantity [product]="product" [productId]="product.key" [shoppingCart]="productList" ></product-quantity>
-                <td>{{product.price | currency:'USD':'symbol'  }}</td>
-            </ng-container>
+            <td>
+                <div [style.backgroundImage]="'url('+product.imgUrl+')'" class="shoppingCartImg"></div>
+            </td>
+            <td>{{product.title}}</td>
+            <td>
+                <product-quantity 
+                [product]="product" [productId]="product.key" [shoppingCart]="productList"></product-quantity>
+            </td>
+            <td class="text-right">{{product.price | currency:'USD':'symbol' }}</td>
         </tr>
     </tbody>
     <tfoot>
         <tr>
             <th></th>
             <th></th>
-            <th>{{totalPrice | currency:'USD':'symbol'}}</th>
+            <th></th>
+            <th class="text-right">{{totalPrice | currency:'USD':'symbol'}}</th>
         </tr>
     </tfoot>
 </table>
+
+<a routerLink="/check-out" class="btn btn-success">Check Out</a>
+
+
+<footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2021 Pengfei Huang</p>
+</footer>

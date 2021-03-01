@@ -16,6 +16,40 @@ export class ShoppingCartService implements OnDestroy {
 
   constructor(private db: AngularFireDatabase) { }
 
+
+  // Method: getCart
+  // Description: return a shoppingCart based on the cartId
+  // Input:  none 
+  // Output: AngularFireObject<unknown>
+  // Preconditions: cartId must be valid
+  async getCart(): Promise<Observable<ShoppingCart>> {
+    //using await change the return type from "Promise<string | null>" to "string | null"
+    let cartId = await this.getOrCreateCartId();
+
+    return this.db.object(this.tableName + cartId).snapshotChanges()
+    .pipe(map(x=>new ShoppingCart(x.payload.exportVal()?.items)));;
+  }
+  
+  // Method: addToCart
+  // Description: product quantity plus one
+  // Input:  product, productId 
+  // Output: none
+  // Preconditions: product and productId must be valid
+  addToCart(product: Product, productId: string) {
+    this.updateQuantity(product, productId, 1);
+  }
+  // Method: removeFromCart
+  // Description: product quantity remove one
+  // Input:  product, productId 
+  // Output: none
+  // Preconditions: product and productId must be valid
+  removeFromCart(product: Product, productId: string) {
+    this.updateQuantity(product, productId, -1);
+  }
+  async emptyCart(){
+    let cartId = await this.getOrCreateCartId()
+    this.db.object(this.tableName + cartId).remove();
+  }
   // Method: create
   // Description: A data record was made and push into the firebase with current time 
   // Input:  none
@@ -26,20 +60,6 @@ export class ShoppingCartService implements OnDestroy {
       dateCreated: new Date().getTime()
     });
   }
-  // Method: getCart
-  // Description: return a shoppingCart based on the cartId
-  // Input:  none 
-  // Output: AngularFireObject<unknown>
-  // Preconditions: cartId must be valid
-  async getCart(): Promise<Observable<ShoppingCart>> {
-    //using await change the return type from "Promise<string | null>" to "string | null"
-    let cartId = await this.getOrCreateCartId();
-    if (cartId) return this.db.object(this.tableName + cartId).snapshotChanges()
-      .pipe(map(x=>new ShoppingCart(x.payload.exportVal()?.items)));
-    return this.db.object(this.tableName + cartId).snapshotChanges()
-    .pipe(map(x=>new ShoppingCart(x.payload.exportVal()?.items)));;
-  }
-
   
   // Method: getOrCreateCartId
   // Description: a async methon that returns a shopping cart id 
@@ -69,18 +89,12 @@ export class ShoppingCartService implements OnDestroy {
     return this.db.object(this.tableName + cartId + '/items/' + productId);
   }
 
-  // Method: addToCart
-  // Description: add product to shopping cart or update shopping cart 
-  // Input:  product, productId 
-  // Output: none
-  // Preconditions: product and productId must be valid
-  addToCart(product: Product, productId: string) {
-    this.updateQuantity(product, productId, 1);
-  }
-  removeFromCart(product: Product, productId: string) {
-    this.updateQuantity(product, productId, -1);
-  }
 
+  // Method: updateQuantity
+  // Description: update product from the shopping cart
+  // Input:  product, productId and update
+  // Output: none
+  // Preconditions: product and productId must be valid, update must be a number
   private async updateQuantity(product: Product, productId: string, update: number) {
     let cartId = await this.getOrCreateCartId();
 
@@ -93,14 +107,20 @@ export class ShoppingCartService implements OnDestroy {
           let itemQuantity = (item.payload.exists()) ? item.payload.exportVal().quantity : 0;
 
           //update the shopping item 
-         // item$.update({ product: product, quantity: itemQuantity + update });
          item$.update({ 
            title: product.title,
            category: product.category,
            imgUrl: product.imgUrl,
            price: product.price,
            quantity: itemQuantity + update });
+          
+          // remove a existential item from the shopping cart when quantity is 0 
+          if( item.payload.exists() && itemQuantity + update === 0){
+            item$.remove();
+           }
         })
+
+       
       );
     }
   }

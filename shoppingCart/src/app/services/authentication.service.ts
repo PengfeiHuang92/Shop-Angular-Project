@@ -76,6 +76,11 @@ export class AuthenticationService implements OnDestroy{
     );
   }
 
+  getAppUserId(){
+  
+   this.afAuth.authState.subscribe(user=> user?.uid)
+  return "";
+}
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }

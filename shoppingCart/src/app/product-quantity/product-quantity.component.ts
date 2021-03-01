@@ -11,7 +11,7 @@ export class ProductQuantityComponent {
   @Input("product") product: any;
   @Input("productId") productId : any;
   @Input("shoppingCart") shoppingCart: any;
-  itemQuantity = 0;
+
   constructor(private shoppingCartService: ShoppingCartService) { }
 
   // Method: button function "addToCart"

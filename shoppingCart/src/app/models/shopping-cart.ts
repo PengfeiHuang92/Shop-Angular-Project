@@ -6,9 +6,7 @@ export class ShoppingCart {
         this.itemMap = itemMap || {};
         for(let productId in itemMap){
             let item = itemMap[productId];
-            let x =new ShoppingCartItem(item.title,item.price,item.imgUrl,item.category,item.quantity);
-            x.key = productId;
-            this.items.push(x);
+            this.items.push(new ShoppingCartItem(item.title,item.price,item.imgUrl,item.category,item.quantity, productId));
         }
      }
     
@@ -24,5 +22,14 @@ export class ShoppingCart {
             }
         }
         return totalQuantity;
+    }
+    get totalPrice(){
+        let totalprice = 0;
+        if(this.items){
+            for (let productId in this.items) {
+                totalprice += this.items[productId].quantity * this.items[productId].price;
+            }
+        }
+        return totalprice;
     }
 }

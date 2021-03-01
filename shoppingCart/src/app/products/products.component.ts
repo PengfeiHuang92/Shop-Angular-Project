@@ -23,7 +23,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   constructor(
     private productService: ProductService,
-    private categortyService: CategoryService,
     private route: ActivatedRoute,
     private shoppingCartService : ShoppingCartService) { }
 

@@ -1,1 +1,154 @@
-<p>check-out works!</p>
+<div class="container">
+  
+
+    <div class="row">
+      <div class="col-md-4 order-md-2 mb-4">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-muted">Your cart</span>
+          <span class="badge badge-secondary badge-pill">{{orderQuantity}}</span>
+        </h4>
+        <ul class="list-group mb-3">
+         
+          <li *ngFor="let p of shoppingCart.items" class="list-group-item d-flex justify-content-between bg-light">
+            <div class="text-success">
+              <h6 class="my-0">{{p.title}}</h6>
+              <small>{{p.quantity}} X </small>
+            </div>
+            <span class="text-success">{{p.price | currency:'USD':'symbol'}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Total (USD)</span>
+            <strong>{{ orderTotal | currency:'USD':'symbol'}}</strong>
+          </li>
+        </ul>
+
+
+      </div>
+
+<!-- Billing address -->
+      <div class="col-md-8 order-md-1">
+        <h4 class="mb-3">Billing address</h4>
+
+        <form [formGroup]="form" (ngSubmit)="placeOrder()" >
+            
+          <div class="row">
+            <div class="col-md-6 mb-3 form-group">
+              <label for="firstName">First name</label>
+              <input formControlName="firstName" class="form-control" type="text" id="firstName">
+              <div *ngIf="firstName?.touched && firstName?.invalid" class="alert alert-danger">
+                <div *ngIf="firstName?.errors?.required"> Valid first name is required.</div>
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3 form-group">
+              <label for="lastName">Last name</label>
+              <input formControlName="lastName" class="form-control" type="text" id="lastName">
+              <div *ngIf="lastName?.touched && lastName?.invalid" class="alert alert-danger">
+                <div *ngIf="lastName?.errors?.required"> Valid first name is required.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3 form-group">
+            <label for="email">Email <span class="text-muted">(Optional)</span></label>
+            <input formControlName="email" class="form-control" type="email" id="email" placeholder="you@example.com">
+            <div class="alert alert-danger" *ngIf="email?.errors?.email"> Valid email required.</div>
+          </div>
+
+          <div class="mb-3 form-group">
+            <label for="address">Address</label>
+            <input formControlName="address" class="form-control" type="text" id="address" placeholder="1234 Main St" required>
+            <div *ngIf="address?.touched && address?.invalid" class="alert alert-danger" >
+              <div *ngIf="address?.errors?.required">
+                Please enter your shipping address.
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- State -->
+            <div class="col-md-5 mb-3 form-group">
+              <label for="state">State</label>
+              <select formControlName="state" class="custom-select d-block w-100 form-control" id="state">
+                <option value="">Choose...</option>
+                <option *ngFor ="let state of stateList" [value]="state">
+                  {{state}}
+                </option>
+              </select>
+              <div *ngIf="state?.touched && state?.invalid" class="alert alert-danger" >
+                <div *ngIf="state?.errors?.required">
+                  Please provide a valid state.
+                </div>
+              </div>
+            </div>
+            <!-- Zip Code -->
+            <div class="col-md-5 mb-3 form-group">
+              <label for="zip">Zip</label>
+              <input formControlName="zip" type="number" class="form-control" id="zip" placeholder="" >
+              <div *ngIf="zip?.touched && zip?.invalid" class="alert alert-danger" >
+                <div *ngIf="zip?.errors?.required">
+                  Zip Code required.
+                </div>
+              </div>
+            </div>
+   
+        
+          </div>
+       
+          <!-- Payment -->
+          <h4 class="mb-3">Payment</h4>
+
+          <div class="d-block my-3  form-group">
+              <div class="custom-control custom-radio">
+                <input id="credit" formControlName="paymentMethod" name="paymentMethod"  type="radio" class="custom-control-input" value="Credit" >
+                <label class="custom-control-label" for="credit">Credit card</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input id="debit" formControlName="paymentMethod" name="paymentMethod"  type="radio" class="custom-control-input" value="Debit" >
+                <label class="custom-control-label" for="debit">Debit card</label>
+              </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3 fom-group">
+              <label for="ccName">Name on card</label>
+              <input id="ccName" autocomplete="off"  formControlName="ccName" type="text" class="form-control" placeholder="" required>
+              <small class="text-muted">Full name as displayed on card</small>
+              
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="ccNumber">Credit card number</label>
+              <input id="ccNumber" autocomplete="off" formControlName="ccNumber" type="text" class="form-control"  placeholder="" required>
+             
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 mb-3">
+              <label for="ccExpiration">Expiration</label>
+              <input type="text" class="form-control" formControlName="ccExpiration" id="ccExpiration" placeholder="mm/yy" required>
+              <div class="invalid-feedback">
+                Expiration date required
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="ccCVV">CVV</label>
+              <input type="number" class="form-control" formControlName="ccCVV" id="ccCVV" placeholder="xxx" required>
+              <div *ngIf="ccCVV?.touched && ccCVV?.invalid" class="alert alert-danger" >
+                <div *ngIf="ccCVV?.errors">
+                  CVV Code Invalid.
+                </div>
+               
+               
+              </div>
+            </div>
+          </div>
+          <hr class="mb-4">
+          <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+      <p class="mb-1">&copy; 2021 Pengfei Huang</p>
+    </footer>
