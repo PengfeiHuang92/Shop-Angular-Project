@@ -50,6 +50,8 @@ export class ShoppingCartService implements OnDestroy {
     let cartId = await this.getOrCreateCartId()
     this.db.object(this.tableName + cartId).remove();
   }
+
+  
   // Method: create
   // Description: A data record was made and push into the firebase with current time 
   // Input:  none

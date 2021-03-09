@@ -1,9 +1,17 @@
+import { Shipping } from './shipping';
+import { PaymentInfo } from './paymentInfo';
 import { ShoppingCart } from './shopping-cart';
 
-export class Order{
+export class Order {
 
-    datePlaced: number;
-    constructor(public userId: string, public shpping:any, public shoppingCart: ShoppingCart){
+    public datePlaced: number;
+    public orderTotalPrice : number;
+
+    constructor(public userId: string, public shipping: Shipping, private paymentInfo: PaymentInfo, public shoppingCart: ShoppingCart,public email?:string) {
         this.datePlaced = new Date().getTime();
+        this.orderTotalPrice = shoppingCart.totalPrice;
+        
     }
+
+    
 }

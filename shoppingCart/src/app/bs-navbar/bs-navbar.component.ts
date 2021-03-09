@@ -30,9 +30,7 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
   async ngOnInit() {
 
     this.subs.add(
-      this.authService.getAppUser().subscribe((appUser: AppUser) => this.appUser = appUser),
-
-      
+      this.authService.getAppUser().subscribe((appUser: AppUser) => this.appUser = appUser)      
     );
   
  
@@ -54,7 +52,6 @@ export class BsNavbarComponent implements OnInit, OnDestroy {
   logout() {
     this.afSevice.logout();
   }
-
 
   hideNav() {
     if (!this.isNavbarCollapsed)

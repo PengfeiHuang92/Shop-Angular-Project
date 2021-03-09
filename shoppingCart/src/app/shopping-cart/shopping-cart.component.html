@@ -5,7 +5,7 @@
     </span>
 </p>
 
-<table class=" table">
+<table class="table">
     <thead>
         <tr>
             <th style="width:80px"></th>
@@ -37,7 +37,7 @@
     </tfoot>
 </table>
 
-<a routerLink="/check-out" class="btn btn-success">Check Out</a>
+<a routerLink="/check-out" *ngIf="productList.length" class="btn btn-success">Check Out</a>
 
 
 <footer class="my-5 pt-5 text-muted text-center text-small">

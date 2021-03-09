@@ -46,6 +46,9 @@ import { DataTablesModule } from 'angular-datatables';
 import { CategoryFilterComponent } from './products/category-filter/category-filter.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
+import { ViewOrderComponent } from './my-orders/view-order/view-order.component';
+import { ShoppingCartItemsComponent } from './shopping-cart-items/shopping-cart-items.component';
+import { AdminOrderItemComponent } from './admin/admin-orders/admin-order-item/admin-order-item.component';
 
 
 
@@ -65,7 +68,10 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
     ProductFormComponent,
     CategoryFilterComponent,
     ProductCardComponent,
-    ProductQuantityComponent
+    ProductQuantityComponent,
+    ViewOrderComponent,
+    ShoppingCartItemsComponent,
+    AdminOrderItemComponent
   ],
   imports: [
     BrowserModule,
@@ -91,10 +97,10 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
       { path:'shopping-cart', component: ShoppingCartComponent },
       //using canActivate to protect none sigin user access check-out pager
       { path:'check-out', component: CheckOutComponent, canActivate:[AuthGuardService]},
-      { path:'order-success', component: OrderSuccessComponent },
+      { path:'order-success/:id', component: OrderSuccessComponent },
       { path:'login', component: LoginComponent },
       { path:'my-order', component: MyOrdersComponent },
-      
+      { path:'my-order/view-order/:id', component: ViewOrderComponent},
     
       { 
         path:'admin/products/new', component: ProductFormComponent, 

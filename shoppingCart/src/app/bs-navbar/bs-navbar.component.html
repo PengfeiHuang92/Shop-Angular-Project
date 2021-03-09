@@ -11,7 +11,7 @@
     <!--Navigation items-->
     <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" routerLink="/shopping-cart" (click)='hideNav()'>
             Shopping Cart
             <ng-container  >
@@ -21,7 +21,7 @@
         
             </ng-container>  
             </a>
-        </li>
+        </li> -->
         <li *ngIf="!appUser" class="nav-item">
           <a class="nav-link" routerLink="/login" (click)='hideNav()'>Login</a>
         </li>
@@ -31,7 +31,7 @@
           <a ngbDropdownToggle class="nav-link" id="dropdown01" data-bs-toggle="dropdown"
             aria-expanded="false">{{appUser.name}}</a>
           <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
-            <li><a class="dropdown-item" routerLink="/my-order" (click)='hideNav()'>MY Orders</a></li>
+            <li><a class="dropdown-item" routerLink="/my-order" (click)='hideNav()' *ngIf="!appUser.isAdmin">MY Orders</a></li>
             <ng-container *ngIf="appUser.isAdmin">
               <li><a class="dropdown-item" routerLink="/admin/admin-products" (click)='hideNav()'>Manage Products</a>
               </li>

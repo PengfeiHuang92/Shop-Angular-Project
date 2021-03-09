@@ -1,1 +1,21 @@
-<p>my-orders works!</p>
+
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped row-border hover">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Order Total</th>
+        <th>Order Date</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orderList ">
+          <td>{{ order.key  }}</td>
+        <td>{{ order.payload.val().orderTotalPrice | currency:'USD':'symbol'  }}</td>
+        <td>{{ order.payload.val().datePlaced | date:'hh:mm MM/dd/YYYY'  }}</td>
+        <td>
+            <a [routerLink] = "['/my-order/view-order',order.key]"> View </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>

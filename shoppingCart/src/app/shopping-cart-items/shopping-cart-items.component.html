@@ -1,0 +1,23 @@
+<div >
+      <h4 class="d-flex justify-content-between align-items-center mb-3">
+        <span class="text-muted">Order</span>
+        <span class="badge badge-secondary badge-pill">{{orderQuantity}}</span>
+      </h4>
+      <ul class="list-group mb-3">
+
+        <li *ngFor="let p of shoppingCart" class="list-group-item d-flex justify-content-between bg-light">
+          <div class="text-success">
+            <h6 class="my-0">{{p.title}}</h6>
+            <small>{{p.quantity}} X </small>
+          </div>
+          <span class="text-success">{{p.price | currency:'USD':'symbol'}}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <span>Total (USD)</span>
+          <strong>{{ orderTotal | currency:'USD':'symbol'}}</strong>
+        </li>
+        <li class="list-group-item text-right">
+           <Button class="btn btn-success" routerLink="/shopping-cart" [disabled]="!shoppingCart.length"> Shopping Cart</Button>
+          </li>
+      </ul>
+    </div>

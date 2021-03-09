@@ -1,4 +1,6 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-order-success',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderSuccessComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: ActivatedRoute,private modalService: NgbModal) { }
 
   ngOnInit(): void {
-  }
+    let orderId =  this.router.snapshot.paramMap.get("id");
+    console.log(orderId);
 
+  }
+  open() {
+    const modalRef = this.modalService.open(OrderSuccessComponent);
+    modalRef.componentInstance.name = 'World';
+  }
+}
+export class NgbdModalContent {
+ 
+
+  constructor(public activeModal: NgbActiveModal) {}
 }
