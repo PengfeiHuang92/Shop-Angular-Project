@@ -64,3 +64,8 @@ Url: https://timhuangshoppingcart.web.app
   . Implemented shopping-cart page
   . reused product-quantity component
   . rewrite addToCart and removeFromcart function of the shopping-cart service
+
+2/22/2021 ~ 3/9/2021
+
+  . Finished order history pages
+  . Fixing the bugs
