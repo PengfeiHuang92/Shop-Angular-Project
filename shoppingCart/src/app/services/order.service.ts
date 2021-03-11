@@ -1,9 +1,9 @@
-import { ShoppingCart } from './../models/shopping-cart';
+
 import { AuthenticationService } from './authentication.service';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
 import { Order } from '../models/order';
-
+import { take, map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -20,11 +20,15 @@ export class OrderService {
     return this.db.list(this.tableName,ref => ref.orderByChild('userId').equalTo(uid));
   }
 
-  getOrder(shoppingCartId: string):AngularFireObject<Order>{
-    return this.db.object(this.tableName + shoppingCartId );
-
+  getOrder(OrderId: string):AngularFireObject<Order>{
+    return this.db.object(this.tableName + OrderId );
   }
   getAll(){
     return this.db.list(this.tableName);
   }
+  removeOrder(orderId: string){
+    return this.db.object(this.tableName + orderId).remove();
+  }
+
+ 
 }

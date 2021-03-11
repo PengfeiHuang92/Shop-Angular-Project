@@ -14,7 +14,7 @@
         <td>{{ order.payload.val().userId   }}</td>
         <td>{{ order.payload.val().datePlaced | date:'hh:mm MM/dd/YYYY'  }}</td>
         <td>
-            <a [routerLink] = "['/my-order/view-order',order.key]"> View </a>
+            <a [routerLink] = "['/admin/admin-orders/admin-order-item',order.key]"> View </a>
         </td>
       </tr>
     </tbody>

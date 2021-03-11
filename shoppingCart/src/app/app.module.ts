@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //Bootstrap
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -30,13 +30,13 @@ import { ProductsComponent } from './products/products.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
 
 //service
 import { AuthenticationService } from './services/authentication.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { UserService } from './services/user.service';
 import { AdminAuthGuardService } from './services/admin-auth-guard.service';
-import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { ProductService } from './services/product.service';
 import { CategoryService } from './services/category.service';
 import { ShoppingCartService } from './services/shopping-cart.service';
@@ -75,7 +75,7 @@ import { AdminOrderItemComponent } from './admin/admin-orders/admin-order-item/a
   ],
   imports: [
     BrowserModule,
-    
+
     //Firebase
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
@@ -86,37 +86,43 @@ import { AdminOrderItemComponent } from './admin/admin-orders/admin-order-item/a
     //ngform 
     FormsModule,
     ReactiveFormsModule,
-    
+
     //Data Table
     DataTablesModule,
 
     //Router
     RouterModule.forRoot([
-      { path:'', component: HomeComponent },
-      { path:'products', component: ProductsComponent },
-      { path:'shopping-cart', component: ShoppingCartComponent },
-      //using canActivate to protect none sigin user access check-out pager
-      { path:'check-out', component: CheckOutComponent, canActivate:[AuthGuardService]},
-      { path:'order-success/:id', component: OrderSuccessComponent },
-      { path:'login', component: LoginComponent },
-      { path:'my-order', component: MyOrdersComponent },
-      { path:'my-order/view-order/:id', component: ViewOrderComponent},
-    
-      { 
-        path:'admin/products/new', component: ProductFormComponent, 
-        canActivate:[AuthGuardService,AdminAuthGuardService]
+      { path: '', component: HomeComponent },
+      { path: 'products', component: ProductsComponent },
+      { path: 'shopping-cart', component: ShoppingCartComponent },
+      { path: 'login', component: LoginComponent },
+
+      //using AuthGuardService to protect none sigin user access those pager
+      { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuardService] },
+      { path: 'order-success/:id', component: OrderSuccessComponent, canActivate: [AuthGuardService] },
+      { path: 'my-order', component: MyOrdersComponent, canActivate: [AuthGuardService] },
+      { path: 'my-order/view-order/:id', component: ViewOrderComponent },
+
+      //using AdminAuthGuardService to protect none admin user access those pager
+      {
+        path: 'admin/products/new', component: ProductFormComponent,
+        canActivate: [AuthGuardService, AdminAuthGuardService]
       },
-      { 
-        path:'admin/products/eidt/:id', component: ProductFormComponent, 
-        canActivate:[AuthGuardService,AdminAuthGuardService]
+      {
+        path: 'admin/products/eidt/:id', component: ProductFormComponent,
+        canActivate: [AuthGuardService, AdminAuthGuardService]
       },
-      { 
-        path:'admin/admin-products', component: AdminProductsComponent, 
-        canActivate:[AuthGuardService,AdminAuthGuardService]
+      {
+        path: 'admin/admin-products', component: AdminProductsComponent,
+        canActivate: [AuthGuardService, AdminAuthGuardService]
       },
-      { 
-        path:'admin/admin-orders', component: AdminOrdersComponent,
-        canActivate:[AuthGuardService,AdminAuthGuardService]
+      {
+        path: 'admin/admin-orders', component: AdminOrdersComponent,
+        canActivate: [AuthGuardService, AdminAuthGuardService]
+      },
+      {
+        path: 'admin/admin-orders/admin-order-item/:id', component: AdminOrderItemComponent,
+        canActivate: [AuthGuardService, AdminAuthGuardService]
       },
     ])
   ],
