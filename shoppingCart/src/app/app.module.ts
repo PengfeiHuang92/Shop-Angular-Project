@@ -98,9 +98,15 @@ import { AdminOrderItemComponent } from './admin/admin-orders/admin-order-item/a
       { path: 'login', component: LoginComponent },
 
       //using AuthGuardService to protect none sigin user access those pager
-      { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuardService] },
-      { path: 'order-success/:id', component: OrderSuccessComponent, canActivate: [AuthGuardService] },
-      { path: 'my-order', component: MyOrdersComponent, canActivate: [AuthGuardService] },
+      { path: 'check-out', component: CheckOutComponent
+      // , canActivate: [AuthGuardService] 
+    },
+      { path: 'order-success/:id', component: OrderSuccessComponent
+      // , canActivate: [AuthGuardService] 
+    },
+      { path: 'my-order', component: MyOrdersComponent
+      // , canActivate: [AuthGuardService] 
+    },
       { path: 'my-order/view-order/:id', component: ViewOrderComponent },
 
       //using AdminAuthGuardService to protect none admin user access those pager
