@@ -8,12 +8,12 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./order-success.component.css']
 })
 export class OrderSuccessComponent implements OnInit {
-
+  orderId:any ;
   constructor(private router: ActivatedRoute,private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    let orderId =  this.router.snapshot.paramMap.get("id");
-    console.log(orderId);
+   this.orderId =  this.router.snapshot.paramMap.get("id");
+
 
   }
   open() {
