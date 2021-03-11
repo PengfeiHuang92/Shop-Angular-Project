@@ -90,24 +90,29 @@ export class CheckOutComponent implements OnInit, OnDestroy {
   }
   placeOrder() {
     this.buttonClicked = true;
-    console.log(this.form);
+    // console.log(this.form);
+
     if (this.form.valid) {
     
       let formValue = this.form.value;
-
+      let order : any;
       let shipping = new Shipping(formValue.firstName , formValue.lastName, formValue.address, formValue.state, formValue.zip);
       let paymentInfo = new PaymentInfo(formValue.ccName, formValue.ccNumber, formValue.ccMonth, formValue.ccYear, formValue.ccCVV);
       let uid = this.authService.getAppUserId();
+      
       if(uid){
-        let order = new Order(uid, shipping, paymentInfo, this.shoppingCart, formValue?.email);
-
+        order = new Order(uid, shipping, paymentInfo, this.shoppingCart, formValue?.email);
+      }else{
+        //if user has not sign in, used cartId for userId
+        uid= localStorage.getItem("cartId");
+        if(uid) order = new Order(uid, shipping, paymentInfo, this.shoppingCart, formValue?.email);
+      }
         let result = this.checkOutService.storeOrder(order);
         this.buttonClicked = false;
         this.shoppingCartService.emptyCart();
+       
         this.router.navigate(['/order-success',result.key]);
         this.form.reset();
-      }
-      
       
       
     }

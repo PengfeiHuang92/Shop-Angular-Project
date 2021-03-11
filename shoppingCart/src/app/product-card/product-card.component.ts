@@ -34,18 +34,19 @@ export class ProductCardComponent {
   // Output: quantity type number
   // Preconditions: product's quantity is returned 
   getQuantity() : number {
-    let quantity = 0
+    // let quantity = 0
     //if shoppingCart does not exist, return 0
+    
     if (!this.shoppingCart) return 0;
 
     for(let i in this.shoppingCart) {
       if(this.shoppingCart[i].key ===this.product.key){
-        quantity = this.shoppingCart[i].quantity;
+        this.itemQuantity = this.shoppingCart[i].quantity;
       }
     }
     
     //if item does not exit, reutrn 0, otherwaise return item quantity
-    return quantity;
+    return this.itemQuantity;
   }
 
 }

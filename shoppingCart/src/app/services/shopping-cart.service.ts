@@ -99,7 +99,7 @@ export class ShoppingCartService implements OnDestroy {
   // Preconditions: product and productId must be valid, update must be a number
   private async updateQuantity(product: Product, productId: string, update: number) {
     let cartId = await this.getOrCreateCartId();
-
+    console.log("cartID",cartId);
     if (cartId) {
       let item$ = await this.getItem(productId);
       this.sub.add(
