@@ -73,3 +73,6 @@ Url: https://timhuangshoppingcart.web.app
 3/10/2021 ~ 3/11/2021
   .fixed bugs
   .allowed customer making order without log in
+  
+3/152021
+  /fixed bug of prodcut quantity does not show at the first time the page is loaded.
